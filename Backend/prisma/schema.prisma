@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentStatus{
+  PAID
+  UNPAID
+  CANCELLED
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  username String @unique
+  email String  @unique
+  password String @unique
+  roleId Int
+  role Role @relation(fields: [roleId], references: [id])
+  sales Sale[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Role{
+  id Int @id
+  name String
+  users User[]
+}
+
+model Product{
+  id Int @id
+  name String
+  harga_beli Int
+  harga_jual Int
+  sku String  @unique
+  stock Int
+  satuan String
+  is_active Boolean @default(true)
+  expiredAt   DateTime?
+  categoryId  Int
+  supplierId  Int?
+
+  saleDetails SalesDetail[]
+
+  category    Category  @relation(fields: [categoryId], references: [id])
+  supplier    Supplier? @relation(fields: [supplierId], references: [id])
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Supplier{
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  no_hp String
+
+  products Product[]
+}
+
+model Category {
+  id Int  @id @default(autoincrement())
+  name String
+  deskripsi String 
+
+  products Product[]
+}
+
+model PaymentMethod{
+  id Int @id @default(autoincrement())
+  nameMetode String
+  Keterangan String
+
+  sales Sale[] 
+}
+
+model Customer{
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  noHp Int
+  sales Sale[]
+}
+
+model Sale{
+  id Int @id @default(autoincrement())
+  no_nota String  @unique
+  transaksiDate DateTime @default(now())
+  userId  Int
+  customerId Int?
+  metodePembayaranId Int
+  statusPembayaran PaymentStatus
+  total_bruto Int
+  total_diskon Int
+  total_bersih Int
+  jumlah_bayar Int
+  kembalian Int
+
+  user                User           @relation(fields: [userId], references: [id])
+  customer            Customer?      @relation(fields: [customerId], references: [id])
+  metodePembayaran    PaymentMethod  @relation(fields: [metodePembayaranId], references: [id])
+
+  sales_detail SalesDetail[]
+}
+
+model SalesDetail{
+  id Int @id @default(autoincrement())
+  saleId Int
+  productId Int
+
+  quantity Int
+  harga_satuan Int
+  diskon_item Int @default(0)
+  subTotal Int
+
+  sale Sale @relation(fields: [saleId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
