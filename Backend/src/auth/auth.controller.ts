@@ -12,7 +12,6 @@ export class AuthController {
     @Post('register')
     @HttpCode(HttpStatus.CREATED)
     async register(@Body() registerDto:RegisterDto){
-        console.log(registerDto);
         return await this.authService.registerUSer(registerDto)
     }
 
@@ -21,5 +20,5 @@ export class AuthController {
     async login(@Body() loginDto:LoginDto){
         return await this.authService.loginUser(loginDto)
     }
-    
+
 }
