@@ -24,6 +24,7 @@ import { RolesGuard } from 'src/auth/guard/role.guard';
 import { findOneParams } from './dto/find-one.params.dto';
 import { updateCategoryDto } from './dto/update-category.dto';
 import { categoryQueryDto } from './dto/category-query.dto';
+import { CategoryListResponse } from './interface/category.interface';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -31,14 +32,6 @@ interface ApiResponse<T> {
   data: T;
 }
 
-interface CategoryListResponse {
-  success: boolean;
-  message: string;
-  data: { id: number; name: string; deskripsi: string }[];
-  total: number;
-  page: number;
-  lastPage: number;
-}
 
 @Controller('category')
 export class CategoryController {
