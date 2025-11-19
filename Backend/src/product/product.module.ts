@@ -11,6 +11,5 @@ import { PrismaModule } from 'src/prisma/prisma.module';
   imports: [PrismaModule,AuthModule,CloudinaryModule],
   controllers: [ProductController],
   providers: [ProductService,CloudinaryService],
-  exports: [ProductService,PrismaService]
 })
 export class ProductModule {}

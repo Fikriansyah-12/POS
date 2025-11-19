@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { ProductModule } from './product/product.module';
-import { ClaudinaryModule } from './cloudinary/cloudinary.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -16,7 +16,7 @@ import { ClaudinaryModule } from './cloudinary/cloudinary.module';
     CategoryModule,
     SupplierModule,
     ProductModule,
-    ClaudinaryModule],
+    CloudinaryModule],
   controllers: [AppController],
   providers: [AppService],
 })
