@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
+  Query,
   Request,
   UploadedFile,
   UseGuards,
@@ -14,6 +16,8 @@ import { Role } from 'src/enum/role.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { createProductDto } from './dto/create-product.dto';
 import { Product } from '@prisma/client';
+import { productQueryDto } from './dto/product-query.dto';
+import { ProductListResponse } from './interface/product.interface';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -39,6 +43,17 @@ export class ProductController {
       success: true,
       message: 'Success',
       data: newProduct,
+    }
+  }
+
+  @Get()
+  @UseGuards(AuthGuard)
+  async findAll(@Query() query:productQueryDto):Promise<ProductListResponse>{
+    const result = await this.productService.findAll(query)
+    return {
+      success: true,
+      message: 'success',
+      ...result
     }
   }
 }

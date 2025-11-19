@@ -42,7 +42,7 @@ export class createProductDto{
 
   @IsOptional()
   @IsInt()
-    @Type(()=> Number)
+  @Type(()=> Number)
 
   supplierId?: number;
 
