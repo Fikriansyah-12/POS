@@ -1,7 +1,7 @@
 import { Type } from "class-transformer";
 import { IsIn, IsInt, IsOptional, IsString, IsUUID, Min } from "class-validator";
 
-export class categoryQueryDto{
+export class supplierQueryDto{
 
     @IsOptional()
     @IsString()
@@ -17,13 +17,12 @@ export class categoryQueryDto{
     @Type(()=> Number)
     @IsInt()
     @Min(1)
-    limit?: number = 3
+    limit?: number = 10
 
     @IsOptional()
-    @IsIn(['name','createdAt'])
-    sortBy?: string = 'createdAt'
+    sortBy?: string
 
     @IsOptional()
     @IsIn(['asc','desc'])
-    sortOrder?: 'asc' | 'desc' = 'asc'
+    sortOrder?: 'asc' | 'desc'
 }

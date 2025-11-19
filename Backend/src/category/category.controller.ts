@@ -73,7 +73,7 @@ async findAll(
     const categoryId = await this.findOneOrFail(id);
     return {
       success: true,
-      message: 'Category success get',
+      message: 'Category success get detail',
       data: categoryId,
     };
   }
