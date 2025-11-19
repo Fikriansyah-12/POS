@@ -41,6 +41,7 @@ model Role{
 model Product{
   id Int @id @default(autoincrement())
   name String
+  image String?
   harga_beli Int
   harga_jual Int
   sku String  @unique
@@ -93,6 +94,7 @@ model Customer{
   sales Sale[]
 }
 
+// Ini juga sama dan bisa jga buat di dashboard
 model Sale{
   id Int @id @default(autoincrement())
   no_nota String  @unique
@@ -114,6 +116,7 @@ model Sale{
   sales_detail SalesDetail[]
 }
 
+// Ini nanti yang akan di tampilkan di Front End nya Buat user 
 model SalesDetail{
   id Int @id @default(autoincrement())
   saleId Int
