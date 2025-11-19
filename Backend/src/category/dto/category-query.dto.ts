@@ -7,10 +7,6 @@ export class categoryQueryDto{
     @IsString()
     name?: string
 
-    // @IsOptional()
-    // @IsUUID()
-    // categoryId?: string
-
     @IsOptional()
     @Type(()=> Number)
     @IsInt()
