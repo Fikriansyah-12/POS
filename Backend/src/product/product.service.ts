@@ -5,6 +5,7 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { nanoid } from 'nanoid';
 import { productQueryDto } from './dto/product-query.dto';
 import { Prisma, Product } from '@prisma/client';
+import { updateProductDto } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductService {
@@ -51,7 +52,7 @@ export class ProductService {
       page = 1,
       limit = 10,
       sortBy = 'createdAt',
-      sortOrder = 'desc',
+      sortOrder = 'asc', // sesuai sikon mau yang terbaru apa yang terlama
     } = query;
 
     const skip = (page - 1) * limit;
@@ -95,22 +96,6 @@ export class ProductService {
           category: true,
           supplier: true,
         },
-        // select: {
-        //   id: true,
-        //   name: true,
-        //   image: true,
-        //   harga_beli: true,
-        //   harga_jual: true,
-        //   sku: true,
-        //   stock: true,
-        //   satuan: true,
-        //   is_active: true,
-        //   expiredAt: true,
-        //   categoryId: true,
-        //   supplierId: true,
-        //   createdAt: true,
-        //   updatedAt: true,
-        // },
       }),
       this.prisma.product.count({ where }),
     ]);
@@ -121,5 +106,46 @@ export class ProductService {
       page,
       lastPage,
     };
+  }
+
+  async findOne(id: number): Promise<Product | null> {
+    return await this.prisma.product.findUnique({
+      where: { id },
+      include: {
+        category: true,
+        supplier: true,
+      },
+    });
+  }
+
+async update(id: number, dto: updateProductDto, file?: Express.Multer.File) {
+  let imageUrl: string | undefined;
+
+  if (file) {
+    imageUrl = await this.cloudinary.uploadImageStream(file);
+  }
+
+  return this.prisma.product.update({
+    where: { id },
+    data: {
+      ...(dto.name && { name: dto.name }),
+      ...(dto.harga_beli !== undefined && { harga_beli: dto.harga_beli }),
+      ...(dto.harga_jual !== undefined && { harga_jual: dto.harga_jual }),
+      ...(dto.stock !== undefined && { stock: dto.stock }),
+      ...(dto.satuan && { satuan: dto.satuan }),
+      ...(dto.expiredAt && { expiredAt: new Date(dto.expiredAt) }),
+      ...(dto.categoryId && { categoryId: dto.categoryId }),
+      ...(dto.supplierId !== undefined && { supplierId: dto.supplierId }),
+      ...(imageUrl && { image: imageUrl }), // 👈 update image kalau ada file
+    },
+    include: {
+      category: true,
+      supplier: true
+    }
+  });
+}
+
+  async remove(id: number): Promise<void> {
+    await this.prisma.product.delete({ where: { id } });
   }
 }
