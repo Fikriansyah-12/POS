@@ -38,6 +38,7 @@
     "cloudinary": "^2.8.0",
     "dotenv": "^17.2.3",
     "helmet": "^8.1.0",
+    "midtrans-client": "^1.4.3",
     "nanoid": "^5.1.6",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
