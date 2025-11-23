@@ -121,7 +121,13 @@ export class AuthService {
         username: user.username,
         role: user.role.name
       },
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(payload, {  }),
     };
+  }
+
+  async getUser(id: number):Promise<User | null>{
+    const user = await this.prisma.user.findUnique({where: {id}})
+
+    return user
   }
 }
