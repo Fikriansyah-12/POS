@@ -6,6 +6,6 @@ export class createPaymentDto{
     nameMetode: string
 
     @IsString()
-    keterangan: string
+    Keterangan: string
 
 }

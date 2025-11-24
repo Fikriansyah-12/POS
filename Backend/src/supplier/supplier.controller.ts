@@ -5,7 +5,7 @@ import { RolesGuard } from 'src/auth/guard/role.guard';
 import { Roles } from 'src/auth/decolator/role.decorator';
 import { Role } from 'src/enum/role.enum';
 import { supplierDto } from './dto/create-supplier.dto';
-import { Category, Supplier } from '@prisma/client';
+import { Supplier } from '@prisma/client';
 import { supplierQueryDto } from './dto/supplier-query.dto';
 import { SupplierResponse } from './interface/supplier.interface';
 import { updateSupplierDto } from './dto/update-supplier.dro';
@@ -68,7 +68,7 @@ export class SupplierController {
       data: updateSupplier
     }
   }
-
+ 
   @Delete(':id')
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
