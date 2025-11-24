@@ -17,7 +17,9 @@ export class CustomerService {
         noHp: createCustomerDto.noHp,
       },
     });
+    console.log(create);
     return create;
+    
   }
 
   async findAll(query: customerQueryDto) {

@@ -3,7 +3,7 @@ export interface CustomerResponse{
       id: number;
       name:string;
       email: string;
-      noHp:number;
+      noHp:string;
     }[];
     total: number;
     page: number;

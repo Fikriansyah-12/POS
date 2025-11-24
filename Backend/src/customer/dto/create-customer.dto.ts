@@ -3,7 +3,6 @@ import { IsEmail, IsMobilePhone, IsOptional, IsString } from "class-validator";
 export class customerDto{
 
   @IsString()
-  @IsOptional()
   name:string
 
   @IsEmail()
@@ -11,6 +10,5 @@ export class customerDto{
   email: string
 
   @IsMobilePhone('id-ID')
-  @IsOptional()
-  noHp: number
+  noHp: string
 }

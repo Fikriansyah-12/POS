@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Customer" ALTER COLUMN "noHp" SET DATA TYPE TEXT;
