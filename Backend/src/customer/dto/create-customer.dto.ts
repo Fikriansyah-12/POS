@@ -12,5 +12,5 @@ export class customerDto{
 
   @IsMobilePhone('id-ID')
   @IsOptional()
-  noHp: string
+  noHp: number
 }
