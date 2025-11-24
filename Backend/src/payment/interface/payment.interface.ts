@@ -2,7 +2,7 @@ export interface PaymentResponse {
   data: {
     id: number;
     nameMetode: string;
-    Keterangan: string; // <- camelCase
+    Keterangan: string; 
   }[];
   total: number;
   page: number;

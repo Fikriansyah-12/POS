@@ -37,7 +37,7 @@ export class createProductDto{
   expiredAt?: string;
 
   @IsInt()
-    @Type(()=> Number)
+  @Type(()=> Number)
   categoryId: number;
 
   @IsOptional()
