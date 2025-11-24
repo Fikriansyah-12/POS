@@ -9,6 +9,7 @@ import { ProductModule } from './product/product.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CustomerModule } from './customer/customer.module';
 import { PaymentModule } from './payment/payment.module';
+import { SaleModule } from './sale/sale.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -20,7 +21,8 @@ import { PaymentModule } from './payment/payment.module';
     ProductModule,
     CloudinaryModule,
     CustomerModule,
-    PaymentModule],
+    PaymentModule,
+    SaleModule],
   controllers: [AppController],
   providers: [AppService],
 })
