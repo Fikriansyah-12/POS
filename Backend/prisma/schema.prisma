@@ -110,6 +110,13 @@ model Sale{
   jumlah_bayar Int
   kembalian Int
 
+  midtransOrderId       String?   @unique
+  midtransTransactionId String?
+  midtransPaymentType   String?
+  midtransStatus        String?
+  midtransSnapToken     String?
+  midtransRawResponse   Json?
+
   user                User           @relation(fields: [userId], references: [id])
   customer            Customer?      @relation(fields: [customerId], references: [id])
   metodePembayaran    PaymentMethod  @relation(fields: [metodePembayaranId], references: [id])
