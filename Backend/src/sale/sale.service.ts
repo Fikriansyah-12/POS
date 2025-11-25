@@ -51,6 +51,12 @@ export class SaleService {
 
     for (const item of dto.items) {
       const product = products.find((p) => p.id === item.productId)!;
+
+      if (product.stock < item.quantity) {
+        throw new BadRequestException(
+          `Stok produk ${product.name} tidak mencukupi (stok: ${product.stock}, diminta: ${item.quantity})`,
+        );
+      }
       const harga_satuan = product.harga_jual;
       const diskon_item = item.diskon_item ?? 0;
 
@@ -105,6 +111,15 @@ export class SaleService {
           data: {
             saleId: createdSale.id,
             ...detail,
+          },
+        });
+
+        await tx.product.update({
+          where: { id: detail.productId },
+          data: {
+            stock: {
+              decrement: detail.quantity,
+            },
           },
         });
       }
