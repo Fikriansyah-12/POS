@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function ProtectedLayout({ children }) {
-  const token = useAuthStore((s) => s.token)
-  const router = useRouter()
+//   const token = useAuthStore((s) => s.token)
+//   const router = useRouter()
 
-  useEffect(() => {
-    if (!token) router.replace('/login')
-  }, [token])
+//   useEffect(() => {
+//     if (!token) router.replace('/login')
+//   }, [token])
 
-  if (!token) return <p>Checking session...</p>
+//   if (!token) return <p>Checking session...</p>
 
   return <>{children}</>
 }

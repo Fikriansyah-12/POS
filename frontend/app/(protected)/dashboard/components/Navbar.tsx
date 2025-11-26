@@ -13,7 +13,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="bg-white shadow p-4 flex justify-between">
+    <header className="bg-white border-b shadow p-4 flex justify-between">
       <span>Hi, {user?.name}</span>
       <button onClick={handleLogout}>Logout</button>
     </header>

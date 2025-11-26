@@ -6,12 +6,12 @@ import { useAuthStore } from '@/store/auth-store'
 // import StatsCard from './components/StatsCard'
 
 export default function DashboardPage() {
-  const { user } = useAuthStore()
-  const router = useRouter()
+//   const { user } = useAuthStore()
+//   const router = useRouter()
 
-  useEffect(() => {
-    if (user?.role !== 'admin') router.replace('/unauthorized')
-  }, [user])
+//   useEffect(() => {
+//     if (user?.role !== 'admin') router.replace('/unauthorized')
+//   }, [user])
 
   return (
     <div>
