@@ -5,6 +5,10 @@ import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+  origin: true,
+  credentials: true,
+});
   app.use(helmet())
   app.setGlobalPrefix('/api/v1')
   app.useGlobalPipes(
@@ -13,6 +17,6 @@ async function bootstrap() {
       whitelist: true
     })
   )
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();

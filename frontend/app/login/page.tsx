@@ -1,4 +1,24 @@
+'use client'
+import { useAuthStore } from "@/store/auth-store";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 export default function Login() {
+  const router = useRouter()
+  const { login, error, isLoading} = useAuthStore()
+
+  const [username, SetUsername] = useState('')
+  const [password, SetPassword] = useState('')
+
+  console.log(username,password,'sss');
+  
+
+  async function handleSubmit(e:any) {
+    e.preventDefault()
+    await login({username,password})
+    router.replace('/dashboard')
+  }
+
   return (
     <div className="min-h-screen bg-black text-gray-900 flex justify-center">
       <div className="max-w-6xl m-0 sm:m-10 bg-black border-yellow-500 border-2 shadow sm:rounded-lg flex justify-center flex-1">
@@ -8,14 +28,19 @@ export default function Login() {
               Login
             </h1>
             <div className="w-full flex-1 mt-8">
+              <form onSubmit={handleSubmit}>
               <div className="mx-auto max-w-xs">
                 <input
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  value={username}
+                  onChange={(e) => SetUsername(e.target.value)}
                   type="text"
                   placeholder="Username"
                 />
                 <input
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                  value={password}
+                  onChange={(e) => SetPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
                 />
@@ -25,6 +50,7 @@ export default function Login() {
                   </span>
                 </button>
               </div>
+              </form>
             </div>
           </div>
         </div>

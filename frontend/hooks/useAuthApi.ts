@@ -43,7 +43,6 @@ export function useAuthApi() {
           return await api.put<T>(path, body, token);
         }
 
-        // fallback kalau butuh PATCH tinggal tambahin di api.ts
         throw new Error('Method not implemented');
       } catch (err: any) {
         setError(err?.message ?? 'Request error');

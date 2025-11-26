@@ -23,7 +23,7 @@ type AuthState = {
   token: string | null;
   isLoading: boolean;
   error: string | null;
-  login: (payload: { email: string; password: string }) => Promise<void>;
+  login: (payload: { username: string; password: string }) => Promise<void>;
   logout: () => void;
 };
 
