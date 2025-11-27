@@ -7,7 +7,8 @@ import {
   Users,
   Settings,
   BarChart3,
-  Tickets
+  Tickets,
+  CreditCard
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import {
@@ -26,6 +27,7 @@ const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Products", url: "/dashboard/product", icon: Package },
   { title: "Orders", url: "/dashboard/sale", icon: ShoppingCart },
+  { title: "Metode Pembayaran", url: "/dashboard/payment", icon: CreditCard },
   { title: "Customers", url: "/dashboard/customer", icon: Users },
   { title: "Promo", url: "/dashboard/promo", icon: Tickets },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
