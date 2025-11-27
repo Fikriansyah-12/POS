@@ -1,17 +1,40 @@
-'use client'
+"use client";
 
-import { Sidebar } from './components/Sidebar'
-import { Navbar } from './components/Navbar'
+import React from "react";
+import {
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/app/components/ui/sidebar"; // BUKAN "@/app/..."
+import { AppSidebar } from "./components/AppSidebar";
+import { Sidebar } from "./components/Sidebar";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full bg-background">
+        {/* Sidebar kiri */}
+        <AppSidebar />
+        {/* <Sidebar/> */}
 
-      <div className="flex-1 bg-gray-100">
-        <Navbar />
-        <main className="p-6">{children}</main>
+        {/* Konten kanan */}
+        <div className="flex-1 flex flex-col">
+          {/* Header/topbar */}
+          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b border-border bg-background px-6">
+            <SidebarTrigger />
+            <div className="flex-1" />
+            {/* Taruh tombol logout/avatar di sini kalau perlu */}
+          </header>
+
+          {/* Konten halaman */}
+          <main className="flex-1 p-6">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
-  )
+    </SidebarProvider>
+  );
 }
