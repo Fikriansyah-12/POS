@@ -87,7 +87,7 @@ const PaymentMethod = () => {
                     </td>
                     <td className="py-3 px-4 text-sm text-muted-foreground">
                       {pay.name_metode}
-                    </td>{" "}
+                    </td>
                     <td className="py-3 px-4 text-sm text-muted-foreground">
                       {pay.keterangan}
                     </td>

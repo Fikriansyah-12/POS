@@ -13,6 +13,20 @@ import { Input } from "@/app/components/ui/input";
 import { Pagination } from "@/app/components/ui/pagination";
 import { MoreVertical, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
+import AddProdukDialog from "../components/AddProduct";
+
+interface Product {
+  id: number,
+  name: string,
+  image: string,
+  harga_beli: string,
+  harga_jual: string,
+  stock:number,
+  satuan:string,
+  expired_ad:string,
+  category:string,
+  supplier:string
+}
 
 const products = [
   {

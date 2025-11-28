@@ -51,7 +51,7 @@ const menuItems: MenuItem[] = [
     icon: Package,
     children: [
       { title: "Daftar Produk", url: "/dashboard/product" },
-      { title: "Kategori", url: "/dashboard/category" },
+      { title: "Kategori", url: "/dashboard/categories" },
       { title: "Supplier", url: "/dashboard/supplier" },
     ],
   },

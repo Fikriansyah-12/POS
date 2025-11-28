@@ -1,11 +1,14 @@
 "use client";
 
 import { Badge } from "@/app/components/ui/badge";
+import { isWithinInterval, parseISO } from "date-fns";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Search, Calendar, Download } from "lucide-react";
 import { useState } from "react";
+import DateRangePicker from "../components/DateRangePicker";
+import { DateRange } from "react-day-picker";
 const orders = [
   {
     id: "#001234",
@@ -73,11 +76,21 @@ const orders = [
 ];
 const Sale = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredOrders = orders.filter(
-    (order) =>
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const filteredOrders = orders.filter(order => {
+    const matchesSearch = 
       order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      order.customer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+      order.customer.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    if (!dateRange?.from) return matchesSearch;
+    
+    const orderDate = parseISO(order.date);
+    const isInRange = dateRange.to
+      ? isWithinInterval(orderDate, { start: dateRange.from, end: dateRange.to })
+      : orderDate >= dateRange.from;
+    
+    return matchesSearch && isInRange;
+  });
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -88,11 +101,14 @@ const Sale = () => {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="gap-2 bg-gray-200 hover:bg-gray-700">
-            <Calendar className="h-4 w-4" />
-            Filter Tanggal
-          </Button>
-          <Button variant="outline" className="gap-2 bg-blue-300 hover:bg-blue-500">
+          <DateRangePicker
+            dateRange={dateRange}
+            onDateRangeChange={setDateRange}
+          />
+          <Button
+            variant="outline"
+            className="gap-2 bg-blue-300 hover:bg-blue-500"
+          >
             <Download className="h-4 w-4" />
             Export
           </Button>
@@ -161,14 +177,14 @@ const Sale = () => {
                     <td className="py-3 px-4 text-sm text-muted-foreground">
                       {orders.items} item
                     </td>
-                     <td className="py-3 px-4 text-sm font-semibold">
+                    <td className="py-3 px-4 text-sm font-semibold">
                       {orders.payment}
                     </td>
                     <td className="py-3 px-4">
-                      <Badge 
+                      <Badge
                         variant={
-                          orders.status === "Completed" 
-                            ? "default" 
+                          orders.status === "Completed"
+                            ? "default"
                             : orders.status === "Cancelled"
                             ? "destructive"
                             : "secondary"
