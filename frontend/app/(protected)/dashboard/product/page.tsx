@@ -13,7 +13,7 @@ import { Input } from "@/app/components/ui/input";
 import { Pagination } from "@/app/components/ui/pagination";
 import { MoreVertical, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
-import AddProdukDialog from "../components/AddProduct";
+import AddProdukDialog from "../components/product/AddProduct";
 
 interface Product {
   id: number,
