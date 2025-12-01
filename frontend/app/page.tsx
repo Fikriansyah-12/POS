@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth-store'
 
 export default function Home() {
-  const router = useRouter()
-  const token = useAuthStore((s) => s.token)
+  // const router = useRouter()
+  // const token = useAuthStore((s) => s.token)
 
-  useEffect(() => {
-    if (token) router.replace('/dashboard')
-    else router.replace('/login')
-  }, [token, router])
+  // useEffect(() => {
+  //   if (token) router.replace('/dashboard')
+  //   else router.replace('/login')
+  // }, [token, router])
 
   return <p>Loading...</p>
 }

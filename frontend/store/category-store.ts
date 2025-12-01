@@ -42,10 +42,9 @@ export const useCategoryStore = create<CategoryState>()((set, get) => ({
       if (params?.search) searchParams.set('search', params.search);
 
       const query = searchParams.toString();
-      const path = `/categories${query ? `?${query}` : ''}`;
+      const path = `/category${query ? `?${query}` : ''}`;
 
       const res = await api.get<PaginatedResponse<Category>>(path, token);
-
       set({
         items: res.data,
         page: res.page,
@@ -60,6 +59,8 @@ export const useCategoryStore = create<CategoryState>()((set, get) => ({
       });
       throw err;
     }
+    console.log('test');
+    
   },
 
   async create(payload) {
@@ -68,9 +69,9 @@ export const useCategoryStore = create<CategoryState>()((set, get) => ({
 
       const token = useAuthStore.getState().token;
 
-      await api.post<ApiResponse<Category>>('/categories', payload, token);
+      await api.post<ApiResponse<Category>>('/category', payload, token);
 
-      await get().fetch();
+      // await get().fetch();
     } catch (err: any) {
       set({
         error: err?.message ?? 'Gagal membuat kategori',
@@ -87,7 +88,7 @@ export const useCategoryStore = create<CategoryState>()((set, get) => ({
 
       const token = useAuthStore.getState().token;
 
-      await api.put<ApiResponse<Category>>(`/categories/${id}`, payload, token);
+      await api.put<ApiResponse<Category>>(`/category/${id}`, payload, token);
 
       await get().fetch();
     } catch (err: any) {
@@ -106,9 +107,9 @@ export const useCategoryStore = create<CategoryState>()((set, get) => ({
 
       const token = useAuthStore.getState().token;
 
-      await api.del<ApiResponse<null>>(`/categories/${id}`, token);
+      await api.del<ApiResponse<null>>(`/category/${id}`, token);
 
-      await get().fetch();
+      // await get().fetch();
     } catch (err: any) {
       set({
         error: err?.message ?? 'Gagal menghapus kategori',

@@ -1,18 +1,26 @@
-'use client'
+"use client";
 
-import { useAuthStore } from '@/store/auth-store'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useAuthStore } from "@/store/auth-store";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ProtectedLayout({ children }) {
-//   const token = useAuthStore((s) => s.token)
-//   const router = useRouter()
+  // const token = useAuthStore((s) => s.token);
+  // const router = useRouter();
+  // const [hydrated, setHydrated] = useState(false);
 
-//   useEffect(() => {
-//     if (!token) router.replace('/login')
-//   }, [token])
+  // useEffect(() => {
+  //   setHydrated(true);
+  // }, []);
 
-//   if (!token) return <p>Checking session...</p>
+  // useEffect(() => {
+  //   if (!hydrated) return;
+  //   if (!token) router.replace("/login");
+  // }, [hydrated, token, router]);
 
-  return <>{children}</>
+  // if (!hydrated) return null; // atau skeleton
+
+  // if (!token) return <p>Checking session...</p>;
+
+  return <>{children}</>;
 }

@@ -36,6 +36,8 @@ export const useAuthStore = create<AuthState>()(
       error: null,
 
       async login(payload) {
+        console.log(payload);
+        
         try {
           set({ isLoading: true, error: null });
 
@@ -45,7 +47,7 @@ export const useAuthStore = create<AuthState>()(
             user: res.user,
             token: res.access_token,
             isLoading: false,
-          });
+          });          
         } catch (err: any) {
           set({
             error: err?.message ?? "Login gagal",

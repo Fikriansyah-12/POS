@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState, useMemo } from "react";
-
+import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -43,7 +43,12 @@ type MenuItem = {
 };
 
 const menuItems: MenuItem[] = [
-  { key: "dashboard", title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  {
+    key: "dashboard",
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+  },
   {
     key: "products",
     title: "Products",
@@ -55,12 +60,37 @@ const menuItems: MenuItem[] = [
       { title: "Supplier", url: "/dashboard/supplier" },
     ],
   },
-  { key: "orders", title: "Orders", url: "/dashboard/sale", icon: ShoppingCart },
-  { key: "payment", title: "Metode Pembayaran", url: "/dashboard/payment", icon: CreditCard },
-  { key: "customers", title: "Customers", url: "/dashboard/customer", icon: Users },
+  {
+    key: "orders",
+    title: "Orders",
+    url: "/dashboard/sale",
+    icon: ShoppingCart,
+  },
+  {
+    key: "payment",
+    title: "Metode Pembayaran",
+    url: "/dashboard/payment",
+    icon: CreditCard,
+  },
+  {
+    key: "customers",
+    title: "Customers",
+    url: "/dashboard/customer",
+    icon: Users,
+  },
   { key: "promo", title: "Promo", url: "/dashboard/promo", icon: Tickets },
-  { key: "analytics", title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
-  { key: "settings", title: "Settings", url: "/dashboard/settings", icon: Settings },
+  {
+    key: "analytics",
+    title: "Analytics",
+    url: "/dashboard/analytics",
+    icon: BarChart3,
+  },
+  {
+    key: "settings",
+    title: "Settings",
+    url: "/dashboard/settings",
+    icon: Settings,
+  },
 ];
 
 export function AppSidebar() {
@@ -76,7 +106,9 @@ export function AppSidebar() {
     return parentWithActiveChild?.key ?? null;
   }, [pathname]);
 
-  const [openParentKey, setOpenParentKey] = useState<string | null>(defaultOpenKey);
+  const [openParentKey, setOpenParentKey] = useState<string | null>(
+    defaultOpenKey
+  );
 
   const handleToggleParent = (key: string) => {
     setOpenParentKey((prev) => (prev === key ? null : key));
@@ -99,7 +131,9 @@ export function AppSidebar() {
                 const isActiveParent =
                   item.url && pathname.startsWith(item.url);
                 const isActiveChild = hasChildren
-                  ? item.children!.some((child) => pathname.startsWith(child.url))
+                  ? item.children!.some((child) =>
+                      pathname.startsWith(child.url)
+                    )
                   : false;
 
                 const isActive = isActiveParent || isActiveChild;
@@ -109,7 +143,7 @@ export function AppSidebar() {
                 return (
                   <SidebarMenuItem key={item.key}>
                     <SidebarMenuButton
-                      asChild={!hasChildren}
+                      asChild // ← PAKAI asChild SELALU
                       isActive={isActive}
                       className="transition-all duration-200"
                     >
@@ -130,10 +164,10 @@ export function AppSidebar() {
                           />
                         </button>
                       ) : (
-                        <a href={item.url!} className="flex items-center gap-3">
-                          <Icon className="h-5 w-5" />
-                          <span className="font-medium">{item.title}</span>
-                        </a>
+                        <Link href={item.url!} className="flex items-center gap-3">
+    <Icon className="h-5 w-5" />
+    <span className="font-medium">{item.title}</span>
+  </Link>
                       )}
                     </SidebarMenuButton>
 
@@ -149,9 +183,9 @@ export function AppSidebar() {
                                 isActive={isChildActive}
                                 size="sm"
                               >
-                                <a href={child.url}>
+                                <Link href={child.url}>
                                   <span>{child.title}</span>
-                                </a>
+                                </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           );
